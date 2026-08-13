@@ -12,6 +12,16 @@ POST http://localhost:5048/PatientDatabase
 Content-Type: application/json
 
 {
+  "Id": 2,
+  "Name": "John Dough",
+  "Allergies": ["Egg"]
+}
+
+###
+POST http://localhost:5048/PatientDatabase
+Content-Type: application/json
+
+{
   "Id": 1,
   "Name": "Jane Dough",
   "Allergies": ["Soy","Peanuts", "Fish"]
@@ -19,3 +29,6 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5048/PatientDatabase/1
+
+###
+GET http://localhost:5048/PatientDatabase/2
