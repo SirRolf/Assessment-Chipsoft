@@ -32,14 +32,14 @@ app.MapGet("/PatientDatabase/{id}", Results<Ok<PatientInfo>, NotFound> (int id) 
 	//Try and find the patient by id  to see if we have him in memory
 	if (!patients.TryGetValue(id, out List<PatientInfo>? patient))
 	{
-		sb.AppendLine($"Patient {id} not found");
+		sb.AppendLine($"Patient with id: {id} not found");
 		
 		//If not then return 404
 		return TypedResults.NotFound();
 	}
 	
 	PatientInfo info = patient.Last();//Returning only the last Patient Info. Could consider giving the entire list.
-	sb.AppendLine($"Patient {id} found and returned");
+	sb.AppendLine($"Patient with id: {id} found and returned");
 	sb.AppendLine(JsonSerializer.Serialize(info));
 	
 	//if patient is found then return patient with 200
@@ -57,7 +57,7 @@ app.MapPost("/PatientDatabase", (PatientInfo info) =>
 	}
 	else
 	{
-		sb.AppendLine($"Patient {info.Id} already exists");
+		sb.AppendLine($"Patient with id: {info.Id} already exists");
         value.Add(info);
 	}
 	
