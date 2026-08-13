@@ -8,4 +8,14 @@ Content-Type: application/json
 }
 
 ###
+POST http://localhost:5048/PatientDatabase
+Content-Type: application/json
+
+{
+  "Id": 1,
+  "Name": "Jane Dough",
+  "Allergies": ["Soy","Peanuts", "Fish"]
+}
+
+###
 GET http://localhost:5048/PatientDatabase/1
