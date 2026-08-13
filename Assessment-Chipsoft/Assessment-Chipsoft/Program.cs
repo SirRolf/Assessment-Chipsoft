@@ -1,4 +1,5 @@
 using System.Text;
+using System.Text.Json;
 using Assessment_Chipsoft.Records;
 using Microsoft.AspNetCore.Http.HttpResults;
 
@@ -14,12 +15,13 @@ app.Use(async (context, next) =>
 {
 	sb.AppendLine($"Starting {context.Request.Method} {context.Request.Path} at {DateTime.UtcNow}");
 	await next(context);
-	sb.AppendLine($"End {context.Request.Method} {context.Request.Path} at {DateTime.UtcNow}");
+	sb.AppendLine($"End {context.Request.Method} {context.Request.Path} at {DateTime.UtcNow}").AppendLine("===================");
 	//Create directory for the logfile 
 	if (!Directory.Exists(logFilePath))
 	{
 		Directory.CreateDirectory(logFilePath);
 	}
+	
 	//append the text added to the string builder to the log file
 	File.AppendAllText(Path.Combine(logFilePath, "log.txt"), sb.ToString());
 	sb.Clear();
@@ -30,13 +32,18 @@ app.MapGet("/PatientDatabase/{id}", Results<Ok<PatientInfo>, NotFound> (int id) 
 	//Try and find the patient by id  to see if we have him in memory
 	if (!patients.TryGetValue(id, out List<PatientInfo>? patient))
 	{
-		//If not then return 404
 		sb.AppendLine($"Patient {id} not found");
+		
+		//If not then return 404
 		return TypedResults.NotFound();
 	}
-	//if patient is found then return patient with 200
+	
+	PatientInfo info = patient.Last();//Returning only the last Patient Info. Could consider giving the entire list.
 	sb.AppendLine($"Patient {id} found and returned");
-	return TypedResults.Ok(patient.Last());//Returning only the last Patient Info. Could consider giving the entire list.
+	sb.AppendLine(JsonSerializer.Serialize(info));
+	
+	//if patient is found then return patient with 200
+	return TypedResults.Ok(info);
 });
 
 app.MapPost("/PatientDatabase", (PatientInfo info) =>
@@ -53,8 +60,9 @@ app.MapPost("/PatientDatabase", (PatientInfo info) =>
 		sb.AppendLine($"Patient {info.Id} already exists");
         value.Add(info);
 	}
-
-	sb.AppendLine(info.ToString());
+	
+	sb.AppendLine(JsonSerializer.Serialize(info));
+	
 	return TypedResults.Created("/PatientDatabase/{id}", patients);
 });
 
