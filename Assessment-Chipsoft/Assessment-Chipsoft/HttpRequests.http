@@ -14,7 +14,8 @@ Content-Type: application/json
 {
   "Id": 2,
   "Name": "John Dough",
-  "Allergies": ["Egg"]
+  "Allergies": ["Egg"],
+  "Documents": []
 }
 
 ###
@@ -24,8 +25,23 @@ Content-Type: application/json
 {
   "Id": 1,
   "Name": "Jane Dough",
-  "Allergies": ["Soy","Peanuts", "Fish"]
+  "Allergies": ["Soy","Peanuts", "Fish"],
+  "Documents": []
 }
+
+###
+POST http://localhost:5048/PatientDatabase/upload
+Content-Type: multipart/form-data
+
+patientId=1
+file=./TestDocuments/VerwijsbriefJane.txt
+
+###
+POST http://localhost:5048/PatientDatabase/upload
+Content-Type: multipart/form-data
+
+patientId=2
+file=./TestDocuments/VerwijsbriefJohn.txt
 
 ###
 GET http://localhost:5048/PatientDatabase/1
