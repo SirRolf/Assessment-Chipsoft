@@ -17,6 +17,7 @@ It is requested that i don't spend longer then 4 hours on this project
 - Get request for requesting a specific version of PatientInfo
 - For such a small project with this time frame i should have kept it simple and not have added the backlog of patient info
 - Implement correct anti Forgery
+- error handling for CopyTo as it could return issues at /PatientDatabase/upload
 
 ## Design choises
 ### Use of minimal API
