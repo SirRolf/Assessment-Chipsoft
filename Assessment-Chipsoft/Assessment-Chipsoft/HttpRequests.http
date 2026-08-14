@@ -4,7 +4,8 @@ Content-Type: application/json
 {
   "Id": 1,
   "Name": "Jane Dough",
-  "Allergies": ["Soy","Peanuts"]
+  "Allergies": ["Soy","Peanuts"],
+  "Documents": []
 }
 
 ###
@@ -31,17 +32,31 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5048/PatientDatabase/upload
-Content-Type: multipart/form-data
+Content-Type: multipart/form-data; boundary=RiderMultipartBoundary
 
-patientId=1
-file=./TestDocuments/VerwijsbriefJane.txt
+--RiderMultipartBoundary
+Content-Disposition: form-data; name="patientId"
+
+1
+--RiderMultipartBoundary
+Content-Disposition: form-data; name="file"; filename="VerwijsbriefJane.txt"
+
+< ./TestDocuments/VerwijsbriefJane.txt
+--RiderMultipartBoundary--
 
 ###
 POST http://localhost:5048/PatientDatabase/upload
-Content-Type: multipart/form-data
+Content-Type: multipart/form-data; boundary=RiderMultipartBoundary
 
-patientId=2
-file=./TestDocuments/VerwijsbriefJohn.txt
+--RiderMultipartBoundary
+Content-Disposition: form-data; name="patientId"
+
+2
+--RiderMultipartBoundary
+Content-Disposition: form-data; name="file"; filename="VerwijsbriefJohn.txt"
+
+< ./TestDocuments/VerwijsbriefJohn.txt
+--RiderMultipartBoundary--
 
 ###
 GET http://localhost:5048/PatientDatabase/1
