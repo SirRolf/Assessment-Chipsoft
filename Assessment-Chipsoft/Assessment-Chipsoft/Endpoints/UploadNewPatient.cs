@@ -6,6 +6,12 @@ namespace Assessment_Chipsoft.Endpoints;
 
 public static class UploadNewPatient
 {
+	/// <summary>
+	/// Upload new Patient info
+	/// </summary>
+	/// <param name="app">Enpoint Route Builder build in Program.cs</param>
+	/// <param name="patients">Dictionary of patients used as database</param>
+	/// <param name="sb">Stringbuilder for logging</param>
 	public static void MapUploadNewPatient(this IEndpointRouteBuilder app, Dictionary<int, List<PatientInfo>> patients, StringBuilder sb)
 	{
 		//uploading new patient

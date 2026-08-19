@@ -6,6 +6,13 @@ namespace Assessment_Chipsoft.Endpoints;
 
 public static class UploadDocument
 {
+	/// <summary>
+	/// Upload new document
+	/// </summary>
+	/// <param name="app">Enpoint Route Builder build in Program.cs</param>
+	/// <param name="patients">Dictionary of patients used as database</param>
+	/// <param name="path">Path where file will be saved</param>
+	/// <param name="sb">Stringbuilder for logging</param>
 	public static void MapUploadDocument(this IEndpointRouteBuilder app, Dictionary<int, List<PatientInfo>> patients, string path, StringBuilder sb)
 	{
 		//upload new file

@@ -7,6 +7,12 @@ namespace Assessment_Chipsoft.Endpoints;
 
 public static class GetPatientInfo
 {
+	/// <summary>
+	/// Get latest patient Info
+	/// </summary>
+	/// <param name="app">Enpoint Route Builder build in Program.cs</param>
+	/// <param name="patients">Dictionary of patients used as database</param>
+	/// <param name="sb">Stringbuilder for logging</param>
 	public static void MapGetLatestPatientInfo(this IEndpointRouteBuilder app, Dictionary<int, List<PatientInfo>> patients, StringBuilder sb)
 	{
 		//receive latest patient info with given id
@@ -16,6 +22,12 @@ public static class GetPatientInfo
 		});
 	}
 	
+	/// <summary>
+	/// Get patient with specific version
+	/// </summary>
+	/// <param name="app">Enpoint Route Builder build in Program.cs</param>
+	/// <param name="patients">Dictionary of patients used as database</param>
+	/// <param name="sb">Stringbuilder for logging</param>
 	public static void MapGetPatientInfo(this IEndpointRouteBuilder app, Dictionary<int, List<PatientInfo>> patients, StringBuilder sb)
 	{
 		//receive latest patient info with given id
@@ -37,8 +49,9 @@ public static class GetPatientInfo
 		}
 
 		PatientInfo info;
-		if (version != -1)
+		if (version >= 0)//-1 is the default value so if its above 0 it will try and get a specific version
 		{
+			//check if the version actually exists
 			if (patients.Count < version)
 			{
 				sb.AppendLine($"Patient with id: {id} version {version} not found");
@@ -46,6 +59,7 @@ public static class GetPatientInfo
 				return TypedResults.NotFound();
 			}
 			
+			//return patient with version
 			info = patient[version];
 		}
 		else
