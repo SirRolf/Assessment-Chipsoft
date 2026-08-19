@@ -81,7 +81,7 @@ app.MapPost("/PatientDatabase", (PatientInfo info) =>
 });
 
 //upload new file
-app.MapPost("/PatientDatabase/upload", ([FromForm]int patientId, IFormFile file) =>
+app.MapPost("/PatientDatabase/upload", async ([FromForm]int patientId, IFormFile file) =>
 {
 	//create appDataPath if it doesn't exist
 	if (!Directory.Exists(localAppDataPath))
@@ -93,8 +93,8 @@ app.MapPost("/PatientDatabase/upload", ([FromForm]int patientId, IFormFile file)
 	//create the Document Info
 	DocumentInfo documentInfo = new(file.FileName, filepath);
 	//create copy of file at file path
-	using FileStream filestream = File.Create(filepath);
-	file.CopyToAsync(filestream);//TODO: error handling for CopyTo as it could return issues
+	await using FileStream filestream = File.Create(filepath);
+	await file.CopyToAsync(filestream);//TODO: error handling for CopyTo as it could return issues
 	
 	//see if patient is already in data and add if nececary
 	if (!patients.TryGetValue(patientId, out List<PatientInfo>? _))
