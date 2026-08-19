@@ -14,10 +14,11 @@ It is requested that i don't spend longer then 4 hours on this project
 
 ## Improvement points
 - I would like to have seperate put routes instead of reusing the Post routes for both the PatientInfo and the upload
-- Get request for requesting a specific version of PatientInfo
 - For such a small project with this time frame i should have kept it simple and not have added the backlog of patient info
 - Implement correct anti Forgery
 - error handling for CopyTo as it could return issues at /PatientDatabase/upload
+- Use of Version for versions of patient info
+- Use of Logger instead of Stringbuilder
 
 ## Design choises
 ### Use of minimal API
