@@ -62,4 +62,7 @@ Content-Disposition: form-data; name="file"; filename="VerwijsbriefJohn.txt"
 GET http://localhost:5048/PatientDatabase/1
 
 ###
+GET http://localhost:5048/PatientDatabase/1/0
+
+###
 GET http://localhost:5048/PatientDatabase/2

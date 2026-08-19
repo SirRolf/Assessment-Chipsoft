@@ -31,6 +31,7 @@ app.Use(async (context, next) =>
 });
 
 app.MapGetLatestPatientInfo(patients, sb);
+app.MapGetPatientInfo(patients, sb);
 
 app.MapUploadNewPatient(patients, sb);
 
